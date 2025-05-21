@@ -1,0 +1,39 @@
+{
+  "name": "bare-tiff",
+  "version": "1.0.0",
+  "description": "TIFF support for Bare",
+  "exports": {
+    "./package": "./package.json",
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "binding.c",
+    "binding.js",
+    "CMakeLists.txt",
+    "prebuilds"
+  ],
+  "addon": true,
+  "scripts": {
+    "test": "prettier . --check && bare test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-tiff.git"
+  },
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/bare-tiff/issues"
+  },
+  "homepage": "https://github.com/holepunchto/bare-tiff#readme",
+  "devDependencies": {
+    "brittle": "^3.4.0",
+    "cmake-bare": "^1.1.2",
+    "prettier": "^3.3.3",
+    "prettier-config-standard": "^7.0.0"
+  },
+  "dependencies": {
+    "cmake-fetch": "^1.4.6"
+  }
+}
