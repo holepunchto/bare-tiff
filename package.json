@@ -1,6 +1,6 @@
 {
   "name": "bare-tiff",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "TIFF support for Bare",
   "exports": {
     "./package": "./package.json",
