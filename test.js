@@ -39,6 +39,18 @@ test('decode rejects overflowing dimensions', (t) => {
   t.exception(() => tiff.decode(evil), /invalid image dimensions/i)
 })
 
+test('decode throws on non-TIFF input', (t) => {
+  t.exception(() => tiff.decode(Buffer.from('this is not a tiff')))
+})
+
+test('decode throws on truncated TIFF', (t) => {
+  // Valid little-endian magic + IFD offset pointing past the end of the buffer,
+  // so TIFFClientOpen fails to read the directory.
+  const truncated = Buffer.from('49492a00' + '08000000', 'hex')
+
+  t.exception(() => tiff.decode(truncated))
+})
+
 test('encode rejects zero width', (t) => {
   t.exception(
     () => tiff.encode({ data: new Uint8Array(4), width: 0, height: 1 }),
