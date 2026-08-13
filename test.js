@@ -94,15 +94,15 @@ test('decode throws when a strip points outside the file', (t) => {
   // Opens cleanly — every required tag is there — but StripOffsets sends
   // libtiff past the end of the buffer, so it fails while reading pixels.
   const image = buildTIFF([
-    { tag: 0x0100, type: LONG, value: 4 }, // ImageWidth
-    { tag: 0x0101, type: LONG, value: 4 }, // ImageLength
-    { tag: 0x0102, type: SHORT, value: 8 }, // BitsPerSample
-    { tag: 0x0103, type: SHORT, value: 1 }, // Compression, none
-    { tag: 0x0106, type: SHORT, value: 1 }, // Photometric, min-is-black
+    { tag: 0x0100, type: LONG, value: 4 },
+    { tag: 0x0101, type: LONG, value: 4 },
+    { tag: 0x0102, type: SHORT, value: 8 },
+    { tag: 0x0103, type: SHORT, value: 1 },
+    { tag: 0x0106, type: SHORT, value: 1 },
     { tag: 0x0111, type: LONG, value: 100000 }, // StripOffsets, past the end
-    { tag: 0x0115, type: SHORT, value: 1 }, // SamplesPerPixel
-    { tag: 0x0116, type: LONG, value: 4 }, // RowsPerStrip
-    { tag: 0x0117, type: LONG, value: 16 } // StripByteCounts
+    { tag: 0x0115, type: SHORT, value: 1 },
+    { tag: 0x0116, type: LONG, value: 4 },
+    { tag: 0x0117, type: LONG, value: 16 }
   ])
 
   t.exception(() => tiff.decode(image), /Seek error/i)
@@ -124,8 +124,6 @@ test('encode rejects dimensions whose product overflows', (t) => {
 
 // Helpers
 
-// Build a little-endian TIFF holding a single directory. Entries must be
-// ordered by tag, as libtiff expects.
 function buildTIFF(entries) {
   const header = Buffer.alloc(8)
 
