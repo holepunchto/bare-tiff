@@ -91,7 +91,7 @@ test('encode rejects buffer smaller than dimensions', (t) => {
 })
 
 test('decode throws when a strip points outside the file', (t) => {
-  // Opens cleanly — every required tag is there — but StripOffsets sends
+  // Opens cleanly - every required tag is there - but StripOffsets sends
   // libtiff past the end of the buffer, so it fails while reading pixels.
   const image = buildTIFF([
     { tag: 0x0100, type: LONG, value: 4 },
