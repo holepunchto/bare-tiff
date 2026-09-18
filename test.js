@@ -108,6 +108,24 @@ test('decode throws when a strip points outside the file', (t) => {
   t.exception(() => tiff.decode(image), /Seek error/i)
 })
 
+test('decode rejects dimensions beyond the pixel cap', (t) => {
+  // Small enough that width * height * 4 fits a size_t, so only the cap stands
+  // between the header and a 40 GB allocation.
+  const image = buildTIFF([
+    { tag: 0x0100, type: LONG, value: 100000 },
+    { tag: 0x0101, type: LONG, value: 100000 },
+    { tag: 0x0102, type: SHORT, value: 8 },
+    { tag: 0x0103, type: SHORT, value: 1 },
+    { tag: 0x0106, type: SHORT, value: 1 },
+    { tag: 0x0111, type: LONG, value: 0 },
+    { tag: 0x0115, type: SHORT, value: 1 },
+    { tag: 0x0116, type: LONG, value: 100000 },
+    { tag: 0x0117, type: LONG, value: 0 }
+  ])
+
+  t.exception(() => tiff.decode(image), /dimensions exceed maximum/)
+})
+
 test('encode rejects dimensions whose product overflows', (t) => {
   // Each side is exactly UINT32_MAX, so they clear the per-side check; it is
   // width * height * 4 that does not fit in a size_t.

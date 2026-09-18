@@ -8,6 +8,8 @@
 #include <tiff.h>
 #include <tiffio.h>
 
+#define BARE_TIFF_MAX_PIXELS (1ull << 28)
+
 #ifndef thread_local
 #ifdef _WIN32
 #define thread_local __declspec(thread)
@@ -156,6 +158,15 @@ bare_tiff_decode(js_env_t *env, js_callback_info_t *info) {
 
   if (width == 0 || height == 0 || width > SIZE_MAX / 4 / height) {
     err = js_throw_error(env, NULL, "Invalid image dimensions");
+    assert(err == 0);
+
+    TIFFClose(decoder);
+
+    return NULL;
+  }
+
+  if ((uint64_t) width * height > BARE_TIFF_MAX_PIXELS) {
+    err = js_throw_error(env, NULL, "TIFF dimensions exceed maximum");
     assert(err == 0);
 
     TIFFClose(decoder);
