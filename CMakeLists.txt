@@ -16,8 +16,6 @@ fetch_package(
 set(ZLIB_INCLUDE_DIR ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
 set(ZLIB_LIBRARY $<TARGET_FILE:zlibstatic>)
 
-add_library(ZLIB::ZLIB ALIAS zlibstatic)
-
 set(zlib ON CACHE BOOL "Enable zlib" FORCE)
 set(libdeflate OFF CACHE BOOL "Enable libdeflate" FORCE)
 set(jbig OFF CACHE BOOL "Enable jbig" FORCE)
