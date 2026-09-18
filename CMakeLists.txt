@@ -7,6 +7,8 @@ set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 
 project(bare_tiff C)
 
+set(ZLIB_BUILD_SHARED OFF)
+
 fetch_package(
   "github:madler/zlib@1.3.2"
   SOURCE_DIR zlib_SOURCE_DIR
@@ -15,6 +17,8 @@ fetch_package(
 
 set(ZLIB_INCLUDE_DIR ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
 set(ZLIB_LIBRARY $<TARGET_FILE:zlibstatic>)
+
+add_library(ZLIB::ZLIB ALIAS zlibstatic)
 
 set(zlib ON CACHE BOOL "Enable zlib" FORCE)
 set(libdeflate OFF CACHE BOOL "Enable libdeflate" FORCE)
