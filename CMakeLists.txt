@@ -7,8 +7,10 @@ set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 
 project(bare_tiff C)
 
+set(ZLIB_BUILD_SHARED OFF)
+
 fetch_package(
-  "github:madler/zlib@1.3.1"
+  "github:madler/zlib@1.3.2"
   SOURCE_DIR zlib_SOURCE_DIR
   BINARY_DIR zlib_BINARY_DIR
 )
