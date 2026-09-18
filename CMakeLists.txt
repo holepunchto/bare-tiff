@@ -29,7 +29,7 @@ set(lzma OFF CACHE BOOL "Enable lzma" FORCE)
 set(webp OFF CACHE BOOL "Enable webp" FORCE)
 set(zstd OFF CACHE BOOL "Enable zstd" FORCE)
 
-fetch_package("gitlab:libtiff/libtiff@4.7.0")
+fetch_package("gitlab:libtiff/libtiff@4.7.2")
 
 add_bare_module(bare_tiff)
 
