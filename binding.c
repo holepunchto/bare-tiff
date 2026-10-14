@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <bare.h>
+#include <bare/module.h>
 #include <js.h>
 #include <stdint.h>
 #include <stdio.h>

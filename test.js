@@ -40,7 +40,8 @@ test('decode rejects overflowing dimensions', (t) => {
     'hex'
   )
 
-  t.exception(() => tiff.decode(evil), /invalid image dimensions/i)
+  // On 32-bit targets, libtiff's own strip size overflows first.
+  t.exception(() => tiff.decode(evil), /invalid image dimensions|zero strip size/i)
 })
 
 test('decode throws on non-TIFF input', (t) => {
@@ -123,7 +124,8 @@ test('decode rejects dimensions beyond the pixel cap', (t) => {
     { tag: 0x0117, type: LONG, value: 0 }
   ])
 
-  t.exception(() => tiff.decode(image), /dimensions exceed maximum/)
+  // On 32-bit targets, the size of the pixel data overflows a size_t first.
+  t.exception(() => tiff.decode(image), /dimensions exceed maximum|invalid image dimensions/i)
 })
 
 test('encode rejects dimensions whose product overflows', (t) => {
